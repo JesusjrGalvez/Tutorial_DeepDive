@@ -1,3 +1,5 @@
+
+
 class Polygon:
     def __init__(self, *pts):
         if pts:
