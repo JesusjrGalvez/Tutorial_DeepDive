@@ -4,15 +4,18 @@ import math
 class Polygon:
 
     def __init__(self, n, r):
-        self.n = n
-        self.radius = r
-        self.edges = self.n
-        self.vertices = self.n
-        self.interior_angle = (self.n-2) * (180/self.n)
-        self.edge_length = 2 * r * math.sin(math.pi/self.n)
-        self.apothem = self.radius * math.cos(math.pi/self.n)
-        self.area = 0.5 * self.n * self.edge_length * self.apothem
-        self.perimeter = self.n * self.edge_length
+        if n < 3:
+            raise IndexError
+        else:
+            self.n = n
+            self.radius = r
+            self.edges = self.n
+            self.vertices = self.n
+            self.interior_angle = (self.n-2) * (180/self.n)
+            self.edge_length = 2 * r * math.sin(math.pi/self.n)
+            self.apothem = self.radius * math.cos(math.pi/self.n)
+            self.area = 0.5 * self.n * self.edge_length * self.apothem
+            self.perimeter = self.n * self.edge_length
 
     def __repr__(self):
         return f"Polygon({self.n}, {self.radius})"
@@ -39,8 +42,27 @@ class Polygon:
             raise TypeError(f"{other} is not a Polygon")
 
 
+class Polygons:
 
-p1 = Polygon(4, 10)
+    def __init__(self, n, r):
+        self.polygons = []
+        for index in range(3, n):
+            self.polygons.append(Polygon(index, r))
+
+    def __getitem__(self, item):
+
+    def max_efficiency(self):
+        for polygon in self.polygons:
+            apothem = self.radius * math.cos(math.pi / self.n)
+            area = 0.5 * self.n * self.edge_length * self.apothem
+
+        max()
+
+
+
+p0 = Polygon()
+
+p1 = Polygon(3, 10)
 print(p1.area)
 print(p1.edge_length)
 print(p1.interior_angle)
