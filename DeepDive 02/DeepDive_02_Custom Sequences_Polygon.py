@@ -7,7 +7,7 @@ class Point:
             #self.x, self.y = x, y
             self._pt = x, y
         else:
-            raise TypeError('Point co-ordinates must be real numbers.')
+            raise TypeError(f'Coordinates {x, y} must be real numbers.')
 
     def __repr__(self):
         return f"Point({self._pt[0]}, {self._pt[1]})"
@@ -19,11 +19,12 @@ class Point:
         return self._pt[s]
 
 
+
 class Polygon:
     def __init__(self, *pts):
         self._pts = []
         if pts:
-            #self._pts = [Point(*pt) for pt in pts]
+            #self._pts = [Point(*pt) for pt in pts] # This is another way of doing it.
             for pt in pts:
                 self._pts.append(Point(*pt))
         else:
@@ -42,6 +43,7 @@ class Polygon:
     def __getitem__(self, item):
         return self._pts[item]
 
+    # This allows pol1 + pol2 functionality.
     def __add__(self, other):
         #self._pts.append(*Polygon(other))
         if isinstance(other, Polygon):
@@ -67,41 +69,32 @@ class Polygon:
             return self
         else:
             # We assume we are passing an iterable
-            points
-            self._pts = self._pts + Polygon(other)
+            print("HI")
+            print(other)
+            points = [Points(*pt) for pt in other]
+            print(points)
+            self._pts = self._pts + points
+            return self
+
+p1 = Point(1, 1)
+p2 = Point(2, 2)
+pol1 = Polygon(p1, p2)
+print(pol1)
+pol2 = Polygon((3, 3))
+print(pol2)
 
 
-p1 = Point(5, 5)
-p2 = Point(x=6, y=6)
-#print("Test", *p2)
-p3 = (3, 3)
-#print("Test", *p3)
-#pol1 = Polygon(p1, p2)
-#print(pol1)
+def foo(a, *b):
+    print(a)
+    print(b)
 
-p = Polygon((0,0), (1, 1))
+foo(5, 6, 7)
+# # pol3 = pol1 + pol2
+# # print(pol3)
+# # pol4 = Polygon(4, 4)
+#
+# l = [i for i in range(10) if i%2 and i%3]
+# print(l)
 
-p4 = Polygon(Point(0, 0), Point(1, 1), (2, 2))
-
-p4.__add__(Polygon((4, 4)))
-
-
-p1 = Polygon((0,0), (1,1))
-p2 = Polygon((2,2), (3,3))
-print(id(p1), p1)
-print(id(p2), p2)
-result = p1 + p2
-print(id(result), result)
-#result2 = p1 + Point(2, 3)
-print("===========")
-p1 = Polygon((0,0), (1,1))
-p2 = Polygon((2,2), (3,3))
-print(id(p1), p1)
-print(id(p2), p2)
-p1 += p2
-print(id(p1), p1)
-
-p1 += Point(6, 6)
-print(p1)
-
-
+l = [ [i*j for j in range(5)] for i in range(5)]
+print(l)
