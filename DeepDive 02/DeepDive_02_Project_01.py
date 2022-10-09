@@ -3,16 +3,16 @@ import math
 
 class Polygon:
 
-    def __init__(self, n, r):
-        if n < 3:
-            raise IndexError
+    def __init__(self, N, R):
+        if N < 3:
+            raise ValueError("Number of edges must be greater or equal to 3")
         else:
-            self.n = n
-            self.radius = r
+            self.n = N
+            self.radius = R
             self.edges = self.n
             self.vertices = self.n
             self.interior_angle = (self.n-2) * (180/self.n)
-            self.edge_length = 2 * r * math.sin(math.pi/self.n)
+            self.edge_length = 2 * self.radius * math.sin(math.pi / self.n)
             self.apothem = self.radius * math.cos(math.pi/self.n)
             self.area = 0.5 * self.n * self.edge_length * self.apothem
             self.perimeter = self.n * self.edge_length
@@ -50,19 +50,29 @@ class Polygons:
             self.polygons.append(Polygon(index, r))
 
     def __getitem__(self, item):
+        return self.polygons[item]
 
     def max_efficiency(self):
+        efficiency_dict = {}
         for polygon in self.polygons:
-            apothem = self.radius * math.cos(math.pi / self.n)
-            area = 0.5 * self.n * self.edge_length * self.apothem
+            efficiency = polygon.area//polygon.perimeter
+            efficiency_dict[polygon.n] = efficiency
+        _max_efficiency = max(efficiency_dict.values())
+        max_key = max(efficiency_dict, key=efficiency_dict.get)
+        return efficiency_dict, _max_efficiency, max_key
 
-        max()
+
+if __name__ == "__main__":
+    print("Hello World")
+    polygons = Polygons(6, 10)
+    print(polygons)
+    print(polygons[1])
+    a, b, c = polygons.max_efficiency()
+    print("hi")
 
 
 
-p0 = Polygon()
-
-p1 = Polygon(3, 10)
+p1 = Polygon(2, 10)
 print(p1.area)
 print(p1.edge_length)
 print(p1.interior_angle)
